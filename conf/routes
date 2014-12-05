@@ -1,0 +1,45 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                                                        controllers.Application.index
+
+# Hello
+GET         /hello/:name                                                             controllers.Application.hello(name: String)
+
+# Connect to DB
+GET         /db_connection                                                           controllers.Application.db_connect
+
+# Get patron from ID
+GET         /patrons/:patron_id                                                      controllers.Application.get_patron(patron_id: Long)
+
+# Get the Patron information
+GET         /patrons                                                                 controllers.Application.get_patron_by_options(first_name: Option[String], last_name: Option[String], address: Option[String], phone_number: Option[String])
+
+# Get Inventory from ID
+GET         /inventory                                                               controllers.Application.get_inventory_by_opts(inventory_id: Option[Long],item_name: Option[String],price: Option[Long], type_desc: Option[String])
+
+# Get available items
+GET         /inventory/available                                                     controllers.Application.get_available_item()
+
+# Get unavailable items
+GET         /inventory/unavailable                                                   controllers.Application.get_unavailable_item()
+
+# Add user to database
+POST        /patrons/:patron_id/:first_name/:last_name/:address/:phone_number        controllers.Application.add_user_to_db(patron_id: Long,first_name: String,last_name: String,address: String,phone_number: String)
+
+# Rent items
+POST        /inventory/rented/:inventory_id/:patron_id                               controllers.Application.rent_item(inventory_id: Long, patron_id: Long)
+
+# Return items
+POST        /inventory/returned/:loan_id/:patron_id                                  controllers.Application.return_item(loan_id:Long, patron_id: Long)
+
+# Get rented items
+GET         /inventory/rented                                                        controllers.Application.get_rented_items()
+
+# Get returned items
+GET         /inventory/returned                                                      controllers.Application.get_returned_items()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                                                            controllers.Assets.at(path="/public", file)
